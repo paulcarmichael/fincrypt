@@ -9,13 +9,19 @@ import (
 	"strings"
 )
 
-// operation mode
+// cipher direction
 const (
-	Encrypt = iota
-	Decrypt
+	DirectionEncrypt = iota
+	DirectionDecrypt
 )
 
-// Pack returns the packed representation of the given expanded hex string
+// encryption modes
+const (
+	ModeECB = "ECB"
+	ModeCBC = "CBC"
+)
+
+// Pack returns the packed representation of an expanded hex string which is provided
 func Pack(input string) (string, error) {
 
 	// validate the input
@@ -49,25 +55,25 @@ func Pack(input string) (string, error) {
 	return string(result), nil
 }
 
-// Expand returns the expanded representation of the given packed hex bytes
+// Expand returns the expanded representation of the packed hex bytes which are provided
 func Expand(input []byte) (string, error) {
 
 	// validate the input
 	if len(input) == 0 {
-		return "", errors.New("ExpandToHex: Input string is zero length, exiting")
+		return "", errors.New("Expand: Input string is zero length, exiting")
 	}
 
 	// encode!
 	result := hex.EncodeToString(input)
 
 	if len(result) == 0 {
-		return "", errors.New("ExpandToHex: Failed to encode the given hex string, exiting")
+		return "", errors.New("Expand: Failed to encode the given hex string, exiting")
 	}
 
 	return strings.ToUpper(result), nil
 }
 
-// EncodeB64 returns the base64 representation of the given string
+// EncodeB64 returns the base64 representation of the string which is provided
 func EncodeB64(input string) (string, error) {
 
 	// validate the input

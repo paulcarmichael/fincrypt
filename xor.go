@@ -10,8 +10,8 @@ type XOROperation struct {
 	Input2 string
 }
 
-// XOR from tiny acorns do mighty oaks grow
-func (op XOROperation) XOR() (string, error) {
+// Calculate that from tiny acorns do mighty oaks grow
+func (op XOROperation) Calculate() (string, error) {
 	// validate the input lengths
 	if len(op.Input1) != len(op.Input2) {
 		return "", errors.New("XOR: Given inputs are different lengths, exiting")
