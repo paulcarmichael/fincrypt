@@ -2,7 +2,6 @@
 package cryptop
 
 import (
-	"encoding/base64"
 	"encoding/hex"
 	"errors"
 	"regexp"
@@ -26,11 +25,11 @@ func Pack(input string) (string, error) {
 
 	// validate the input
 	if len(input) == 0 {
-		return "", errors.New("Pack: Input string is zero length, exiting")
+		return "", errors.New("Input string has zero length")
 	}
 
 	if len(input)%2 != 0 {
-		return "", errors.New("Pack: Input string is an uneven length, exiting")
+		return "", errors.New("Input string is an uneven length, use only full bytes")
 	}
 
 	upperInput := strings.ToUpper(input)
@@ -42,14 +41,14 @@ func Pack(input string) (string, error) {
 	}
 
 	if match == false {
-		return "", errors.New("Pack: Input string contains invalid hex, exiting")
+		return "", errors.New("Input string contains invalid characters, use hex only (0-9 A-F)")
 	}
 
 	// decode!
 	result, err := hex.DecodeString(upperInput)
 
 	if err != nil {
-		return "", errors.New("Pack: Failed to decode the given hex, exiting")
+		return "", errors.New("Failed to decode the given hex")
 	}
 
 	return string(result), nil
@@ -60,33 +59,15 @@ func Expand(input []byte) (string, error) {
 
 	// validate the input
 	if len(input) == 0 {
-		return "", errors.New("Expand: Input string is zero length, exiting")
+		return "", errors.New("Input string has zero length")
 	}
 
 	// encode!
 	result := hex.EncodeToString(input)
 
 	if len(result) == 0 {
-		return "", errors.New("Expand: Failed to encode the given hex string, exiting")
+		return "", errors.New("Failed to encode the given hex string")
 	}
 
 	return strings.ToUpper(result), nil
-}
-
-// EncodeB64 returns the base64 representation of the string which is provided
-func EncodeB64(input string) (string, error) {
-
-	// validate the input
-	if len(input) == 0 {
-		return "", errors.New("EncodeB64: Input string is zero length, exiting")
-	}
-
-	// encode!
-	result := base64.StdEncoding.EncodeToString([]byte(input))
-
-	if len(result) == 0 {
-		return "", errors.New("EncodeB64: Failed to encode the given string, exiting")
-	}
-
-	return result, nil
 }

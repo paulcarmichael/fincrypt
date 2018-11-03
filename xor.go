@@ -14,7 +14,7 @@ type XOROperation struct {
 func (op XOROperation) Calculate() (string, error) {
 	// validate the input lengths
 	if len(op.Input1) != len(op.Input2) {
-		return "", errors.New("XOR: Given inputs are different lengths, exiting")
+		return "", errors.New("Given inputs are different lengths")
 	}
 
 	// pack the data

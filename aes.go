@@ -15,7 +15,7 @@ type AESOperation struct {
 	IV        string
 }
 
-// Calculate performs a crypto operation as described in the AESOperation data, which should be populated by the caller
+// Calculate performs a crypto operation as described in the AESOperation variable, which should be populated by the caller
 func (op AESOperation) Calculate() (string, error) {
 	// pack the key, data, and IV
 	var err error
@@ -45,7 +45,7 @@ func (op AESOperation) Calculate() (string, error) {
 		keyLength == 32 { // AES-256
 		//happy
 	} else {
-		return "", errors.New("AESCrypt: Key must be 16/24/32 bytes")
+		return "", errors.New("Key must be 16/24/32 bytes")
 	}
 
 	// prepare the key
@@ -59,7 +59,7 @@ func (op AESOperation) Calculate() (string, error) {
 	blockSize := block.BlockSize()
 
 	if len(op.Data)%blockSize != 0 {
-		return "", errors.New("AESCrypt: Data length must be a multiple of the block size (16)")
+		return "", errors.New("Data length must be a multiple of the block size (16 bytes)")
 	}
 
 	// prepare a buffer for the result
@@ -69,7 +69,7 @@ func (op AESOperation) Calculate() (string, error) {
 	if op.Mode == ModeCBC {
 		// validate the iv length
 		if len(op.IV) != 16 {
-			return "", errors.New("AESCrypt: IV must be 16 bytes")
+			return "", errors.New("IV must be 16 bytes")
 		}
 
 		var blockMode cipher.BlockMode
