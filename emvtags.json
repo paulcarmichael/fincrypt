@@ -1,0 +1,6 @@
+{
+    "Tags": [
+        {"Tag": "42", "Name": "Issuer Identification Number (IIN)", "Format": "n6", "MinLength": "3", "MaxLength": "3"},
+        {"Tag": "4F", "Name": "Application Dedicated File (ADF) Name", "Format": "b", "MinLength": "5", "MaxLength": "16"}
+    ]
+}
