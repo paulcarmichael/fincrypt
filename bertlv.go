@@ -13,9 +13,9 @@ import (
 // BERTLVTag struct represents an individual tag
 type BERTLVTag struct {
 	Tag           string
-	Length        string
-	MinLength     string
-	MaxLength     string
+	Length        int64
+	MinLength     int64
+	MaxLength     int64
 	Value         string
 	Name          string
 	Format        string
@@ -73,15 +73,25 @@ func (p BERTLVParser) Parse() (string, error) {
 	// parse
 	var tags []BERTLVTag
 
+ParseLoop:
 	for len(data) != 0 {
 
 		var tag BERTLVTag
 
-		// parse the tag, which can be multiple bytes long, identified by the presence of bit 4
+		// parse the tag, which can be multiple bytes long, identified by the last 5 bytes being set
 		for {
+			// for the case of multibyte tags, sanity check there is some remaining data to operate on
+			if len(data) == 0 {
+				tag.InvalidReason = string("Not enough data remaining to parse tag")
+				tag.Tag, _ = Expand([]byte(tag.Tag))
+				tags = append(tags, tag)
+
+				break ParseLoop
+			}
+
 			tag.Tag += data[:1]
 
-			if data[0]&0x08 == 0x08 {
+			if data[0]&0x1F == 0x1F {
 				data = data[1:]
 			} else {
 				data = data[1:]
@@ -95,65 +105,10 @@ func (p BERTLVParser) Parse() (string, error) {
 			return "", err
 		}
 
-		// parse the length, which is one byte
-		tag.Length, err = Expand([]byte(data[:1]))
+		// lookup the tag in the dictionary
+		if dictionaryTag, found := GetDictionary().Tags[tag.Tag]; found {
 
-		if err != nil {
-			return "", err
-		}
-
-		data = data[1:]
-
-		// parse the value, according to the length we just parsed
-		valueLength, err := strconv.ParseInt(tag.Length, 16, 16)
-
-		if err != nil {
-			return "", err
-		}
-
-		// sanity check the given length against the data length
-		if valueLength > int64(len(data)) {
-			var b strings.Builder
-
-			b.WriteString("ParseBERTLV: Tag ")
-			b.WriteString(tag.Tag)
-			b.WriteString(" has length ")
-			b.WriteString(tag.Length)
-			b.WriteString(" but there are only ")
-			b.WriteString(strconv.Itoa(len(data)))
-			b.WriteString(" bytes remaining")
-
-			return "", errors.New(b.String())
-		}
-
-		tag.Value, err = Expand([]byte(data[:valueLength]))
-
-		if err != nil {
-			return "", err
-		}
-
-		data = data[valueLength:]
-
-		// lookup the tag details in the EMVDictionary
-		if dictionaryTag, found := dictionary.Tags[tag.Tag]; found {
-			if dictionaryTag.MinLength <= tag.Length &&
-				dictionaryTag.MaxLength >= tag.Length {
-				tag.Valid = true
-			} else {
-				var b strings.Builder
-
-				b.WriteString("Tag ")
-				b.WriteString(tag.Tag)
-				b.WriteString(" has length ")
-				b.WriteString(tag.Length)
-				b.WriteString(" but the EMV 4.1 specification states it should be minimum ")
-				b.WriteString(dictionaryTag.MinLength)
-				b.WriteString(" to maximum ")
-				b.WriteString(dictionaryTag.MaxLength)
-
-				tag.InvalidReason = b.String()
-			}
-
+			// save the dictionary details into the current tag
 			tag.Name = dictionaryTag.Name
 			tag.Format = dictionaryTag.Format
 			tag.MinLength = dictionaryTag.MinLength
@@ -163,9 +118,82 @@ func (p BERTLVParser) Parse() (string, error) {
 
 			b.WriteString("Tag ")
 			b.WriteString(tag.Tag)
-			b.WriteString(" is unknown to the EMV 4.1 specification")
+			b.WriteString(" is unknown to the EMV 4.3 specification")
 
 			tag.InvalidReason = b.String()
+		}
+
+		// sanity check there is some remaining data to operate on
+		if len(data) == 0 {
+			tag.InvalidReason = string("Not enough data remaining to parse tag length")
+			tags = append(tags, tag)
+
+			break ParseLoop
+		}
+
+		// parse the length, which is one byte
+		sLength, err := Expand([]byte(data[:1]))
+
+		if err != nil {
+			return "", err
+		}
+
+		tag.Length, err = strconv.ParseInt(sLength, 16, 16)
+
+		if err != nil {
+			return "", err
+		}
+
+		data = data[1:]
+
+		// sanity check the given length against the data length
+		if tag.Length > int64(len(data)) {
+			var b strings.Builder
+
+			b.WriteString("Tag ")
+			b.WriteString(tag.Tag)
+			b.WriteString(" has length ")
+			b.WriteString(strconv.FormatInt(tag.Length, 10))
+			b.WriteString(" but there are only ")
+			b.WriteString(strconv.FormatInt(int64(len(data)), 10))
+			b.WriteString(" bytes remaining")
+
+			tag.InvalidReason = b.String()
+			tag.Value, _ = Expand([]byte(data[0:]))
+
+			tags = append(tags, tag)
+
+			break ParseLoop
+		}
+
+		// parse the value, given be tag length
+		tag.Value, err = Expand([]byte(data[:tag.Length]))
+
+		if err != nil {
+			return "", err
+		}
+
+		data = data[tag.Length:]
+
+		// validate the tag using the dictionary details
+		if dictionaryTag, found := GetDictionary().Tags[tag.Tag]; found {
+			if dictionaryTag.MinLength <= tag.Length &&
+				dictionaryTag.MaxLength >= tag.Length {
+				tag.Valid = true
+			} else {
+				var b strings.Builder
+
+				b.WriteString("Tag ")
+				b.WriteString(tag.Tag)
+				b.WriteString(" has length ")
+				b.WriteString(strconv.FormatInt(tag.Length, 10))
+				b.WriteString(", the EMV 4.3 specification states this length should be minimum ")
+				b.WriteString(strconv.FormatInt(dictionaryTag.MinLength, 10))
+				b.WriteString(" to maximum ")
+				b.WriteString(strconv.FormatInt(dictionaryTag.MaxLength, 10))
+
+				tag.InvalidReason = b.String()
+			}
 		}
 
 		// add the tag to our slice of parsed tags
@@ -176,7 +204,7 @@ func (p BERTLVParser) Parse() (string, error) {
 	result, err := json.Marshal(tags)
 
 	if err != nil {
-		return "Failed to convert parsed tags to json", nil
+		return "", errors.New("Failed to convert parsed tags to json")
 	}
 
 	return string(result), nil

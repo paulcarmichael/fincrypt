@@ -2,21 +2,729 @@
 	"Tags": {
 		"42": {
 			"Name": "Issuer Identification Number (IIN)",
-			"Format": "n6",
-			"MinLength": "3",
-			"MaxLength": "3"
+			"Format": "n 6",
+			"MinLength": 3,
+			"MaxLength": 3
 		},
 		"4F": {
 			"Name": "Application Dedicated File (ADF) Name",
 			"Format": "b",
-			"MinLength": "5",
-			"MaxLength": "16"
+			"MinLength": 5,
+			"MaxLength": 16
+		},
+		"50": {
+			"Name": "Application Label",
+			"Format": "ans",
+			"MinLength": 1,
+			"MaxLength": 16
+		},
+		"57": {
+			"Name": "Track 2 Equivalent Data",
+			"Format": "b",
+			"MinLength": 1,
+			"MaxLength": 19
+		},
+		"5A": {
+			"Name": "Application Primary Account Number (PAN)",
+			"Format": "cn 1-19",
+			"MinLength": 1,
+			"MaxLength": 10
+		},
+		"5F20": {
+			"Name": "Cardholder Name",
+			"Format": "ans 2-26",
+			"MinLength": 2,
+			"MaxLength": 26
+		},
+		"5F24": {
+			"Name": "Application Expiration Date",
+			"Format": "n 6",
+			"MinLength": 3,
+			"MaxLength": 3
+		},
+		"5F25": {
+			"Name": "Application Effective Date",
+			"Format": "n 6",
+			"MinLength": 3,
+			"MaxLength": 3
+		},
+		"5F2A": {
+			"Name": "Transaction Currency Code",
+			"Format": "n 3",
+			"MinLength": 2,
+			"MaxLength": 2
+		},
+		"5F2B": {
+			"Name": "Issuer Country Code",
+			"Format": "n 3",
+			"MinLength": 2,
+			"MaxLength": 2
+		},
+		"5F2D": {
+			"Name": "Language Preference",
+			"Format": "an 2",
+			"MinLength": 2,
+			"MaxLength": 8
+		},
+		"5F30": {
+			"Name": "Service Code",
+			"Format": "n 3",
+			"MinLength": 2,
+			"MaxLength": 2
+		},
+		"5F34": {
+			"Name": "Application Primary Account Number (PAN) Sequence Number",
+			"Format": "n 2",
+			"MinLength": 1,
+			"MaxLength": 1
+		},
+		"5F36": {
+			"Name": "Transaction Currency Exponent",
+			"Format": "n 1",
+			"MinLength": 1,
+			"MaxLength": 1
+		},
+		"5F50": {
+			"Name": "Issuer URL",
+			"Format": "ans",
+			"MinLength": 1,
+			"MaxLength": 252
+		},
+		"5F53": {
+			"Name": "International Bank Account Number (IBAN)",
+			"Format": "var",
+			"MinLength": 1,
+			"MaxLength": 34
+		},
+		"5F54": {
+			"Name": "Bank Identification Code (BIC)",
+			"Format": "var",
+			"MinLength": 8,
+			"MaxLength": 11
+		},
+		"5F55": {
+			"Name": "Issuer Country Code (alpha2 format)",
+			"Format": "a 2",
+			"MinLength": 2,
+			"MaxLength": 2
+		},
+		"5F56": {
+			"Name": "Issuer Country Code (alpha3 format)",
+			"Format": "a 3",
+			"MinLength": 3,
+			"MaxLength": 3
+		},
+		"5F57": {
+			"Name": "Account Type",
+			"Format": "n 2",
+			"MinLength": 1,
+			"MaxLength": 1
+		},
+		"61": {
+			"Name": "Application Template",
+			"Format": "b",
+			"MinLength": 1,
+			"MaxLength": 252
+		},
+		"6F": {
+			"Name": "File Control Information (FCI) Template",
+			"Format": "var",
+			"MinLength": 1,
+			"MaxLength": 252
+		},
+		"70": {
+			"Name": "Read Recrod Response Message Template",
+			"Format": "var",
+			"MinLength": 1,
+			"MaxLength": 252
+		},
+		"71": {
+			"Name": "Issuer Script Template 1",
+			"Format": "b",
+			"MinLength": 1,
+			"MaxLength": 252
+		},
+		"72": {
+			"Name": "Issuer Script Template 2",
+			"Format": "b",
+			"MinLength": 1,
+			"MaxLength": 252
+		},
+		"73": {
+			"Name": "Directory Discretionary Template",
+			"Format": "var",
+			"MinLength": 1,
+			"MaxLength": 252
+		},
+		"77": {
+			"Name": "Response Message Template Format 2",
+			"Format": "var",
+			"MinLength": 1,
+			"MaxLength": 252
+		},
+		"80": {
+			"Name": "Response Message Template Format 1",
+			"Format": "var",
+			"MinLength": 1,
+			"MaxLength": 252
+		},
+		"81": {
+			"Name": "Amount, Authorised (Binary)",
+			"Format": "b",
+			"MinLength": 4,
+			"MaxLength": 4
+		},
+		"82": {
+			"Name": "Application Interchange Profile",
+			"Format": "b",
+			"MinLength": 2,
+			"MaxLength": 2
+		},
+		"83": {
+			"Name": "Command Template",
+			"Format": "b",
+			"MinLength": 1,
+			"MaxLength": 252
+		},
+		"84": {
+			"Name": "Dedicated File (DF) Name",
+			"Format": "b",
+			"MinLength": 1,
+			"MaxLength": 252
+		},
+		"86": {
+			"Name": "Issuer Script Command",
+			"Format": "b",
+			"MinLength": 1,
+			"MaxLength": 261
+		},
+		"87": {
+			"Name": "Application Priority Indicator",
+			"Format": "b",
+			"MinLength": 1,
+			"MaxLength": 1
+		},
+		"88": {
+			"Name": "Short File Identifier (SFI)",
+			"Format": "b",
+			"MinLength": 1,
+			"MaxLength": 1
+		},
+		"89": {
+			"Name": "Authorisation Code",
+			"Format": "b",
+			"MinLength": 6,
+			"MaxLength": 6
+		},
+		"8A": {
+			"Name": "Authorisation Response Code",
+			"Format": "an 2",
+			"MinLength": 2,
+			"MaxLength": 2
+		},
+		"8C": {
+			"Name": "Card Risk Management Data Object List 1 (CDOL1)",
+			"Format": "b",
+			"MinLength": 1,
+			"MaxLength": 252
+		},
+		"8D": {
+			"Name": "Card Risk Management Data Object List 2 (CDOL2)",
+			"Format": "b",
+			"MinLength": 1,
+			"MaxLength": 252
+		},
+		"8E": {
+			"Name": "Cardholder Verification Method (CVM) List",
+			"Format": "b",
+			"MinLength": 10,
+			"MaxLength": 252
+		},
+		"8F": {
+			"Name": "Certification Authority Public Key Index",
+			"Format": "b",
+			"MinLength": 1,
+			"MaxLength": 1
+		},
+		"90": {
+			"Name": "Issuer Public Key Certificate",
+			"Format": "b",
+			"MinLength": 1,
+			"MaxLength": 252
+		},
+		"91": {
+			"Name": "Issuer Authentication Data",
+			"Format": "b",
+			"MinLength": 8,
+			"MaxLength": 16
+		},
+		"92": {
+			"Name": "Issuer Public Key Remainder",
+			"Format": "b",
+			"MinLength": 1,
+			"MaxLength": 252
+		},
+		"93": {
+			"Name": "Signed Static Application Data",
+			"Format": "b",
+			"MinLength": 1,
+			"MaxLength": 252
+		},
+		"94": {
+			"Name": "Application File Locator (AFL)",
+			"Format": "var",
+			"MinLength": 1,
+			"MaxLength": 252
+		},
+		"95": {
+			"Name": "Terminal Verification Results",
+			"Format": "b",
+			"MinLength": 5,
+			"MaxLength": 5
+		},
+		"97": {
+			"Name": "Transaction Certificate Data Object List (TDOL)",
+			"Format": "b",
+			"MinLength": 1,
+			"MaxLength": 252
+		},
+		"98": {
+			"Name": "Transaction Certificate (TC) Hash Value",
+			"Format": "b",
+			"MinLength": 1,
+			"MaxLength": 20
+		},
+		"99": {
+			"Name": "Transaction Personal Identification Number (PIN) Data",
+			"Format": "b",
+			"MinLength": 1,
+			"MaxLength": 252
+		},
+		"9A": {
+			"Name": "Transaction Date",
+			"Format": "n 6",
+			"MinLength": 3,
+			"MaxLength": 3
+		},
+		"9B": {
+			"Name": "Transaction Status Information",
+			"Format": "b",
+			"MinLength": 2,
+			"MaxLength": 2
+		},
+		"9C": {
+			"Name": "Transaction Type",
+			"Format": "n 2",
+			"MinLength": 1,
+			"MaxLength": 1
+		},
+		"9D": {
+			"Name": "Directory Definition File (DDF) Name",
+			"Format": "b",
+			"MinLength": 5,
+			"MaxLength": 16
+		},
+		"9F01": {
+			"Name": "Acquirer Identifier",
+			"Format": "n 6-11",
+			"MinLength": 6,
+			"MaxLength": 6
+		},
+		"9F02": {
+			"Name": "Amount, Authorised (Numeric)",
+			"Format": "n 12",
+			"MinLength": 6,
+			"MaxLength": 6
+		},
+		"9F03": {
+			"Name": "Amount, Other (Numeric)",
+			"Format": "n 12",
+			"MinLength": 6,
+			"MaxLength": 6
+		},
+		"9F04": {
+			"Name": "Amount, Other (Binary)",
+			"Format": "b",
+			"MinLength": 4,
+			"MaxLength": 4
+		},
+		"9F05": {
+			"Name": "Application Discretionary Data",
+			"Format": "b",
+			"MinLength": 1,
+			"MaxLength": 32
+		},
+		"9F06": {
+			"Name": "Application Identifier (AID) - Terminal",
+			"Format": "b",
+			"MinLength": 5,
+			"MaxLength": 16
+		},
+		"9F07": {
+			"Name": "Application Usage Control",
+			"Format": "b",
+			"MinLength": 2,
+			"MaxLength": 2
+		},
+		"9F08": {
+			"Name": "Application Version Number",
+			"Format": "b",
+			"MinLength": 2,
+			"MaxLength": 2
+		},
+		"9F09": {
+			"Name": "Application Version Number",
+			"Format": "b",
+			"MinLength": 2,
+			"MaxLength": 2
+		},
+		"9F0B": {
+			"Name": "Cardholder Name Extended",
+			"Format": "ans 27-45",
+			"MinLength": 27,
+			"MaxLength": 45
+		},
+		"9F0D": {
+			"Name": "Issuer Action Code - Default",
+			"Format": "b",
+			"MinLength": 5,
+			"MaxLength": 5
+		},
+		"9F0E": {
+			"Name": "Issuer Action Code - Denial",
+			"Format": "b",
+			"MinLength": 5,
+			"MaxLength": 5
+		},
+		"9F0F": {
+			"Name": "Issuer Action Code - Online",
+			"Format": "b",
+			"MinLength": 5,
+			"MaxLength": 5
 		},
 		"9F10": {
 			"Name": "Issuer Authentication Data",
 			"Format": "b",
-			"MinLength": "0",
-			"MaxLength": "32"
+			"MinLength": 1,
+			"MaxLength": 32
+		},
+		"9F11": {
+			"Name": "Issuer Code Table Index",
+			"Format": "n 2",
+			"MinLength": 1,
+			"MaxLength": 1
+		},
+		"9F12": {
+			"Name": "Application Preferred Name",
+			"Format": "ans",
+			"MinLength": 1,
+			"MaxLength": 16
+		},
+		"9F13": {
+			"Name": "Last Online Application Transaction Counter (ATC) Register",
+			"Format": "b",
+			"MinLength": 2,
+			"MaxLength": 2
+		},
+		"9F14": {
+			"Name": "Lower Consecutive Offline Limit",
+			"Format": "b",
+			"MinLength": 1,
+			"MaxLength": 1
+		},
+		"9F15": {
+			"Name": "Merchant Category Code",
+			"Format": "n 4",
+			"MinLength": 2,
+			"MaxLength": 2
+		},
+		"9F16": {
+			"Name": "Merchant Identifier",
+			"Format": "ans 15",
+			"MinLength": 15,
+			"MaxLength": 15
+		},
+		"9F17": {
+			"Name": "Personal Identification Number (PIN) Try Counter",
+			"Format": "b",
+			"MinLength": 1,
+			"MaxLength": 1
+		},
+		"9F18": {
+			"Name": "Issuer Script Identifier",
+			"Format": "b",
+			"MinLength": 4,
+			"MaxLength": 4
+		},
+		"9F1A": {
+			"Name": "Terminal Country Code",
+			"Format": "n 3",
+			"MinLength": 2,
+			"MaxLength": 2
+		},
+		"9F1B": {
+			"Name": "Terminal Floor Limit",
+			"Format": "b",
+			"MinLength": 4,
+			"MaxLength": 4
+		},
+		"9F1C": {
+			"Name": "Terminal Identification",
+			"Format": "an 8",
+			"MinLength": 8,
+			"MaxLength": 8
+		},
+		"9F1D": {
+			"Name": "Terminal Risk Management Data",
+			"Format": "b",
+			"MinLength": 1,
+			"MaxLength": 8
+		},
+		"9F1E": {
+			"Name": "Interface Device (IFD) Serial Number",
+			"Format": "an 8",
+			"MinLength": 8,
+			"MaxLength": 8
+		},
+		"9F1F": {
+			"Name": "Track 1 Discretionary Data",
+			"Format": "ans",
+			"MinLength": 1,
+			"MaxLength": 252
+		},
+		"9F20": {
+			"Name": "Track 2 Discretionary Data",
+			"Format": "cn",
+			"MinLength": 1,
+			"MaxLength": 252
+		},
+		"9F21": {
+			"Name": "Transaction Time",
+			"Format": "n 6",
+			"MinLength": 3,
+			"MaxLength": 3
+		},
+		"9F22": {
+			"Name": "Certification Authority Public Key Index",
+			"Format": "b",
+			"MinLength": 8,
+			"MaxLength": 8
+		},
+		"9F23": {
+			"Name": "Upper Consecutive Offline Limit",
+			"Format": "b",
+			"MinLength": 1,
+			"MaxLength": 1
+		},
+		"9F26": {
+			"Name": "Application Cryptogram",
+			"Format": "b",
+			"MinLength": 8,
+			"MaxLength": 8
+		},
+		"9F27": {
+			"Name": "Cryptogram Information Data",
+			"Format": "b",
+			"MinLength": 1,
+			"MaxLength": 1
+		},
+		"9F2D": {
+			"Name": "Integrated Circuit Card (ICC) PIN Encipherment Public Key Certificate",
+			"Format": "b",
+			"MinLength": 1,
+			"MaxLength": 252
+		},
+		"9F2E": {
+			"Name": "Integrated Circuit Card (ICC) PIN Encipherment Public Key Exponent",
+			"Format": "b",
+			"MinLength": 1,
+			"MaxLength": 3
+		},
+		"9F2F": {
+			"Name": "Integrated Circuit Card (ICC) PIN Encipherment Public Key Remainder",
+			"Format": "b",
+			"MinLength": 1,
+			"MaxLength": 252
+		},
+		"9F32": {
+			"Name": "Issuer Public Key Exponent",
+			"Format": "b",
+			"MinLength": 1,
+			"MaxLength": 3
+		},
+		"9F33": {
+			"Name": "Terminal Capabilities",
+			"Format": "b",
+			"MinLength": 3,
+			"MaxLength": 3
+		},
+		"9F34": {
+			"Name": "Cardholder Verification Method (CVM) Results",
+			"Format": "b",
+			"MinLength": 3,
+			"MaxLength": 3
+		},
+		"9F35": {
+			"Name": "Terminal Type",
+			"Format": "n 2",
+			"MinLength": 1,
+			"MaxLength": 1
+		},
+		"9F36": {
+			"Name": "Application Transaction Counter (ATC)",
+			"Format": "b",
+			"MinLength": 2,
+			"MaxLength": 2
+		},
+		"9F37": {
+			"Name": "Unpredictable Number",
+			"Format": "b",
+			"MinLength": 4,
+			"MaxLength": 4
+		},
+		"9F38": {
+			"Name": "Processing Options Data Object List (PDOL)",
+			"Format": "b",
+			"MinLength": 1,
+			"MaxLength": 252
+		},
+		"9F39": {
+			"Name": "Point-of-Service (POS) Entry Mode",
+			"Format": "n 2",
+			"MinLength": 1,
+			"MaxLength": 1
+		},
+		"9F3A": {
+			"Name": "Amount, Reference Currency",
+			"Format": "b",
+			"MinLength": 4,
+			"MaxLength": 4
+		},
+		"9F3B": {
+			"Name": "Application Reference Currency",
+			"Format": "n 3",
+			"MinLength": 2,
+			"MaxLength": 8
+		},
+		"9F3C": {
+			"Name": "Transaction Reference Currency Code",
+			"Format": "n 3",
+			"MinLength": 2,
+			"MaxLength": 2
+		},
+		"9F3D": {
+			"Name": "Transaction Reference Currency Exponent",
+			"Format": "n 1",
+			"MinLength": 1,
+			"MaxLength": 1
+		},
+		"9F40": {
+			"Name": "Additional Terminal Capabilities",
+			"Format": "b",
+			"MinLength": 5,
+			"MaxLength": 5
+		},
+		"9F41": {
+			"Name": "Transaction Sequence Counter",
+			"Format": "n 4-8",
+			"MinLength": 2,
+			"MaxLength": 4
+		},
+		"9F42": {
+			"Name": "Application Currency Code",
+			"Format": "n 3",
+			"MinLength": 2,
+			"MaxLength": 2
+		},
+		"9F43": {
+			"Name": "Application Reference Currency Exponent",
+			"Format": "n 1",
+			"MinLength": 1,
+			"MaxLength": 4
+		},
+		"9F44": {
+			"Name": "Application Currency Exponent",
+			"Format": "n 1",
+			"MinLength": 1,
+			"MaxLength": 1
+		},
+		"9F45": {
+			"Name": "Data Authentication Code",
+			"Format": "b",
+			"MinLength": 2,
+			"MaxLength": 2
+		},
+		"9F46": {
+			"Name": "Integrated Circuit Card (ICC) Public Key Certificate",
+			"Format": "b",
+			"MinLength": 1,
+			"MaxLength": 252
+		},
+		"9F47": {
+			"Name": "Integrated Circuit Card (ICC) Public Key Exponent",
+			"Format": "b",
+			"MinLength": 1,
+			"MaxLength": 3
+		},
+		"9F48": {
+			"Name": "Integrated Circuit Card (ICC) Public Key Remainder",
+			"Format": "b",
+			"MinLength": 1,
+			"MaxLength": 252
+		},
+		"9F49": {
+			"Name": "Dynamic Data Authentication Data Object List (DDOL)",
+			"Format": "b",
+			"MinLength": 1,
+			"MaxLength": 252
+		},
+		"9F4A": {
+			"Name": "Static Data Authentication Tag List",
+			"Format": "var",
+			"MinLength": 1,
+			"MaxLength": 252
+		},
+		"9F4B": {
+			"Name": "Signed Dynamic Application Data",
+			"Format": "b",
+			"MinLength": 1,
+			"MaxLength": 252
+		},
+		"9F4C": {
+			"Name": "ICC Dynamic Number",
+			"Format": "b",
+			"MinLength": 2,
+			"MaxLength": 8
+		},
+		"9F4D": {
+			"Name": "Log Entry",
+			"Format": "b",
+			"MinLength": 2,
+			"MaxLength": 2
+		},
+		"9F4E": {
+			"Name": "Merchant Name and Location",
+			"Format": "ans",
+			"MinLength": 1,
+			"MaxLength": 252
+		},
+		"9F4F": {
+			"Name": "Log Format",
+			"Format": "b",
+			"MinLength": 1,
+			"MaxLength": 252
+		},
+		"A5": {
+			"Name": "File Control Information (FCI) Proprietary Template",
+			"Format": "var",
+			"MinLength": 1,
+			"MaxLength": 252
+		},
+		"BF0C": {
+			"Name": "File Control Information (FCI) Issuer Discretionary Data",
+			"Format": "var",
+			"MinLength": 1,
+			"MaxLength": 222
 		}
 	}
 }
