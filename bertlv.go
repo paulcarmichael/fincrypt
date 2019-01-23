@@ -37,7 +37,7 @@ func GetDictionary() *EMVDictionary {
 		dictionary = &EMVDictionary{}
 
 		// open the emvtags.json file
-		bytes, err := ioutil.ReadFile("../src/github.com/paulcarmichael/cryptop/emvtags.json")
+		bytes, err := ioutil.ReadFile("/go/src/github.com/paulcarmichael/cryptop/emvtags.json")
 
 		if err != nil {
 			log.Fatal("Open: ", err)

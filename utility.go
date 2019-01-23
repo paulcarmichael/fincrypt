@@ -1,4 +1,3 @@
-// Package cryptop contains functions to perform cryptographic operations
 package cryptop
 
 import (
