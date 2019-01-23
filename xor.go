@@ -12,6 +12,7 @@ type XOROperation struct {
 
 // Calculate that from tiny acorns do mighty oaks grow
 func (op XOROperation) Calculate() (string, error) {
+
 	// validate the input lengths
 	if len(op.Input1) != len(op.Input2) {
 		return "", errors.New("Given inputs are different lengths")
@@ -32,12 +33,7 @@ func (op XOROperation) Calculate() (string, error) {
 	}
 
 	// xor!
-	length := len(op.Input1)
-	r := make([]byte, length)
-
-	for i := 0; i < length; i++ {
-		r[i] = op.Input1[i] ^ op.Input2[i]
-	}
+	r := XOR([]byte(op.Input1), []byte(op.Input2))
 
 	// expand the result
 	result, err := Expand(r)

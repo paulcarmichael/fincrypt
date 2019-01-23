@@ -19,6 +19,7 @@ type DESOperation struct {
 func (op DESOperation) Calculate() (string, error) {
 	// pack the key, data, and IV
 	var err error
+
 	op.Key, err = Pack(op.Key)
 
 	if err != nil {
@@ -37,7 +38,7 @@ func (op DESOperation) Calculate() (string, error) {
 		return "", err
 	}
 
-	// valiate the key length
+	// validate the key length
 	keyLength := len(op.Key)
 
 	if keyLength == 8 || // DES

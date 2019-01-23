@@ -71,3 +71,16 @@ func Expand(input []byte) (string, error) {
 
 	return strings.ToUpper(result), nil
 }
+
+// XOR returns the XOR result of the two given byte slices, they are expected to have valid hexadecimal contents, equal lengths, and packed
+func XOR(i1, i2 []byte) []byte {
+
+	length := len(i1)
+	r := make([]byte, length)
+
+	for i := 0; i < length; i++ {
+		r[i] = i1[i] ^ i2[i]
+	}
+
+	return r
+}
