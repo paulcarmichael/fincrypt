@@ -61,8 +61,8 @@ type BERTLVParser struct {
 	Request string
 }
 
-// Parse is given a string of BERTLV data and returns the parsed tags
-func (p BERTLVParser) Parse() (string, error) {
+// Calculate is given a string of BERTLV data and returns the parsed tags
+func (p BERTLVParser) Calculate() (string, error) {
 	// pack the request
 	data, err := Pack(p.Request)
 
