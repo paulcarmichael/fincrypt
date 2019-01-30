@@ -16,7 +16,7 @@ func (op LuhnOperation) Calculate() (string, error) {
 
 	// validate the input
 	if len(op.Input) == 0 {
-		return "", errors.New("Input has zero length")
+		return "", errors.New("Input length is zero")
 	}
 
 	if NumericOnly(op.Input) == false {
@@ -55,5 +55,13 @@ func (op LuhnOperation) Calculate() (string, error) {
 		sum += digit
 	}
 
-	return strconv.Itoa(10 - (sum % 10)), nil
+	result := sum % 10
+
+	if result == 0 {
+		// leave result as zero
+	} else {
+		result = 10 - result
+	}
+
+	return strconv.Itoa(result), nil
 }

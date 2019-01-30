@@ -72,3 +72,19 @@ func TestCalculate_Generate(t *testing.T) {
 		t.Errorf("Expected a luhn digit of 3, method returned %s", result)
 	}
 }
+
+func TestCalculate_GenerateZero(t *testing.T) {
+	operation := LuhnOperation{}
+	operation.Input = "7992739871399"
+	operation.Mode = ModeGenerate
+
+	result, err := operation.Calculate()
+
+	if err != nil {
+		t.Errorf(err.Error())
+	}
+
+	if result != "0" {
+		t.Errorf("Expected a luhn digit of 0, method returned %s", result)
+	}
+}
