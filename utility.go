@@ -13,6 +13,12 @@ const (
 	DirectionDecrypt
 )
 
+// validation modes
+const (
+	ModeGenerate = iota
+	ModeValidate
+)
+
 // encryption modes
 const (
 	ModeECB = "ECB"
@@ -82,4 +88,16 @@ func XOR(i1, i2 []byte) []byte {
 	}
 
 	return r
+}
+
+// NumericOnly examines the given string and returns true if all bytes are numeric characters
+func NumericOnly(s string) bool {
+
+	match, err := regexp.MatchString("^[0-9]+$", s)
+
+	if err != nil {
+		return false
+	}
+
+	return match
 }
