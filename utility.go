@@ -25,6 +25,11 @@ const (
 	ModeCBC = "CBC"
 )
 
+// Operation interface is satisfied by all cryptop structs
+type Operation interface {
+	Calculate() (string, error)
+}
+
 // Pack returns the packed representation of an expanded hex string which is provided
 func Pack(input string) (string, error) {
 
