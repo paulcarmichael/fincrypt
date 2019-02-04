@@ -47,7 +47,7 @@ func (op CVVOperation) Calculate() (string, error) {
 	// prepare the required keys
 	var err error
 
-	op.CVK, err = Pack(op.CVK)
+	op.CVK, err = Pack(op.CVK, InputNameCVK)
 
 	if err != nil {
 		return "", err
@@ -123,7 +123,7 @@ func (op CVVOperation) calculateCVV(kl, kr cipher.Block) (string, error) {
 	}
 
 	// pack the input and data
-	input, err := Pack(input)
+	input, err := Pack(input, InputNameInput)
 
 	if err != nil {
 		return "", err

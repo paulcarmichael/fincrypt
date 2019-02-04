@@ -21,8 +21,17 @@ const (
 
 // encryption modes
 const (
-	ModeECB = "ECB"
-	ModeCBC = "CBC"
+	CipherModeECB = "ECB"
+	CipherModeCBC = "CBC"
+)
+
+// input names
+const (
+	InputNameKey   = "Key"
+	InputNameData  = "Data"
+	InputNameIV    = "IV"
+	InputNameInput = "Input"
+	InputNameCVK   = "CVK"
 )
 
 // Operation interface is satisfied by all cryptop structs
@@ -31,15 +40,15 @@ type Operation interface {
 }
 
 // Pack returns the packed representation of an expanded hex string which is provided
-func Pack(input string) (string, error) {
+func Pack(input, name string) (string, error) {
 
 	// validate the input
 	if len(input) == 0 {
-		return "", errors.New("Input string has zero length")
+		return "", errors.New(name + " input has zero length")
 	}
 
 	if len(input)%2 != 0 {
-		return "", errors.New("Input string is an uneven length, use only full bytes")
+		return "", errors.New(name + " input string is an uneven length, use only full bytes")
 	}
 
 	upperInput := strings.ToUpper(input)
@@ -51,7 +60,7 @@ func Pack(input string) (string, error) {
 	}
 
 	if match == false {
-		return "", errors.New("Input string contains invalid characters, use hex only (0-9 A-F)")
+		return "", errors.New(name + " input string contains invalid characters, use hex only (0-9 A-F)")
 	}
 
 	// decode!

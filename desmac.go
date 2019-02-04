@@ -25,13 +25,13 @@ func (op DESMACOperation) Calculate() (string, error) {
 	// pack the key and data
 	var err error
 
-	op.Key, err = Pack(op.Key)
+	op.Key, err = Pack(op.Key, InputNameKey)
 
 	if err != nil {
 		return "", err
 	}
 
-	op.Data, err = Pack(op.Data)
+	op.Data, err = Pack(op.Data, InputNameData)
 
 	if err != nil {
 		return "", err
@@ -92,9 +92,9 @@ func (op DESMACOperation) Calculate() (string, error) {
 	kl.Encrypt(r, []byte(op.Data[:blockSize]))
 
 	// loop through the remaining data blocks
-	for start := blockSize; start < len(op.Data); start += blockSize {
+	for pos := blockSize; pos < len(op.Data); pos += blockSize {
 		// xor the result with the next block
-		r = XOR(r, []byte(op.Data[start:start+blockSize]))
+		r = XOR(r, []byte(op.Data[pos:pos+blockSize]))
 
 		// encrypt the result with kl
 		kl.Encrypt(r, r)

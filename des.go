@@ -20,19 +20,19 @@ func (op DESOperation) Calculate() (string, error) {
 	// pack the key, data, and IV
 	var err error
 
-	op.Key, err = Pack(op.Key)
+	op.Key, err = Pack(op.Key, InputNameKey)
 
 	if err != nil {
 		return "", err
 	}
 
-	op.Data, err = Pack(op.Data)
+	op.Data, err = Pack(op.Data, InputNameData)
 
 	if err != nil {
 		return "", err
 	}
 
-	op.IV, err = Pack(op.IV)
+	op.IV, err = Pack(op.IV, InputNameIV)
 
 	if err != nil {
 		return "", err
@@ -86,7 +86,7 @@ func (op DESOperation) Calculate() (string, error) {
 	r := make([]byte, len(op.Data))
 
 	// the caller specifies the direction and mode
-	if op.Mode == ModeCBC {
+	if op.Mode == CipherModeCBC {
 		// validate the iv length
 		if len(op.IV) != 8 {
 			return "", errors.New("IV must be 8 bytes")
@@ -101,16 +101,16 @@ func (op DESOperation) Calculate() (string, error) {
 		}
 
 		blockMode.CryptBlocks(r, []byte(op.Data))
-	} else if op.Mode == ModeECB { // cipher provides no EBC crypters, so do it manually by the block
+	} else if op.Mode == CipherModeECB { // cipher provides no ECB crypters, so do it manually by the block
 		data := []byte(op.Data)
 
 		if op.Direction == DirectionEncrypt {
-			for blockStart, blockEnd := 0, blockSize; blockStart < len(op.Data); blockStart, blockEnd = blockStart+blockSize, blockEnd+blockSize {
-				block.Encrypt(r[blockStart:blockEnd], data[blockStart:blockEnd])
+			for pos := 0; pos < len(op.Data); pos += blockSize {
+				block.Encrypt(r[pos:], data[pos:])
 			}
 		} else {
-			for blockStart, blockEnd := 0, blockSize; blockStart < len(op.Data); blockStart, blockEnd = blockStart+blockSize, blockEnd+blockSize {
-				block.Decrypt(r[blockStart:blockEnd], data[blockStart:blockEnd])
+			for pos := 0; pos < len(op.Data); pos += blockSize {
+				block.Decrypt(r[pos:], data[pos:])
 			}
 		}
 	}

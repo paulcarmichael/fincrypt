@@ -58,13 +58,13 @@ func GetDictionary() *EMVDictionary {
 
 // BERTLVParser struct to be populated by the caller
 type BERTLVParser struct {
-	Request string
+	Input string
 }
 
 // Calculate is given a string of BERTLV data and returns the parsed tags
 func (p BERTLVParser) Calculate() (string, error) {
 	// pack the request
-	data, err := Pack(p.Request)
+	data, err := Pack(p.Input, InputNameInput)
 
 	if err != nil {
 		return "", err
