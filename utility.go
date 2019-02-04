@@ -19,7 +19,7 @@ const (
 	ModeValidate
 )
 
-// encryption modes
+// cipher modes
 const (
 	CipherModeECB = "ECB"
 	CipherModeCBC = "CBC"
@@ -39,7 +39,7 @@ type Operation interface {
 	Calculate() (string, error)
 }
 
-// Pack returns the packed representation of an expanded hex string which is provided
+// Pack returns the packed representation of an expanded hex string
 func Pack(input, name string) (string, error) {
 
 	// validate the input
@@ -48,7 +48,7 @@ func Pack(input, name string) (string, error) {
 	}
 
 	if len(input)%2 != 0 {
-		return "", errors.New(name + " input string is an uneven length, use only full bytes")
+		return "", errors.New(name + " input is an uneven length, use only full bytes")
 	}
 
 	upperInput := strings.ToUpper(input)
@@ -60,7 +60,7 @@ func Pack(input, name string) (string, error) {
 	}
 
 	if match == false {
-		return "", errors.New(name + " input string contains invalid characters, use hex only (0-9 A-F)")
+		return "", errors.New(name + " input contains invalid characters, use hex only (0-9 A-F)")
 	}
 
 	// decode!
@@ -73,19 +73,19 @@ func Pack(input, name string) (string, error) {
 	return string(result), nil
 }
 
-// Expand returns the expanded representation of the packed hex bytes which are provided
+// Expand returns the expanded representation of the provided packed hex bytes
 func Expand(input []byte) (string, error) {
 
 	// validate the input
 	if len(input) == 0 {
-		return "", errors.New("Input string has zero length")
+		return "", errors.New("Input has zero length")
 	}
 
 	// encode!
 	result := hex.EncodeToString(input)
 
 	if len(result) == 0 {
-		return "", errors.New("Failed to encode the given hex string")
+		return "", errors.New("Failed to encode the given hex")
 	}
 
 	return strings.ToUpper(result), nil

@@ -2,7 +2,7 @@ package cryptop
 
 import "testing"
 
-func TestCalculateCVV_Valid(t *testing.T) {
+func Test_CVV(t *testing.T) {
 	operation := CVVOperation{}
 	operation.PAN = "5486960000008273"
 	operation.Expiry = "1812"

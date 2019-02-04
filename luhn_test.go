@@ -2,7 +2,7 @@ package cryptop
 
 import "testing"
 
-func TestCalculateLuhn_ZeroLengthInput(t *testing.T) {
+func Test_Luhn_ZeroLengthInput(t *testing.T) {
 	operation := LuhnOperation{}
 	operation.Mode = ModeValidate
 
@@ -13,7 +13,7 @@ func TestCalculateLuhn_ZeroLengthInput(t *testing.T) {
 	}
 }
 
-func TestCalculateLuhn_NonNumericInput(t *testing.T) {
+func Test_Luhn_NonNumericInput(t *testing.T) {
 	operation := LuhnOperation{}
 	operation.Input = "4929142A85824009"
 	operation.Mode = ModeValidate
@@ -25,7 +25,7 @@ func TestCalculateLuhn_NonNumericInput(t *testing.T) {
 	}
 }
 
-func TestCalculateLuhn_Valid(t *testing.T) {
+func Test_Luhn_Valid(t *testing.T) {
 	operation := LuhnOperation{}
 	operation.Input = "4929142285824009"
 	operation.Mode = ModeValidate
@@ -41,7 +41,7 @@ func TestCalculateLuhn_Valid(t *testing.T) {
 	}
 }
 
-func TestCalculateLuhn_Invalid(t *testing.T) {
+func Test_Luhn_Invalid(t *testing.T) {
 	operation := LuhnOperation{}
 	operation.Input = "4929142285824003"
 	operation.Mode = ModeValidate
@@ -57,7 +57,7 @@ func TestCalculateLuhn_Invalid(t *testing.T) {
 	}
 }
 
-func TestCalculateLuhn_Generate(t *testing.T) {
+func Test_Luhn_Generate(t *testing.T) {
 	operation := LuhnOperation{}
 	operation.Input = "7992739871"
 	operation.Mode = ModeGenerate
@@ -73,7 +73,7 @@ func TestCalculateLuhn_Generate(t *testing.T) {
 	}
 }
 
-func TestCalculateLuhn_GenerateZero(t *testing.T) {
+func Test_Luhn_GenerateZero(t *testing.T) {
 	operation := LuhnOperation{}
 	operation.Input = "7992739871399"
 	operation.Mode = ModeGenerate
