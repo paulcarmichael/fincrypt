@@ -1,4 +1,4 @@
-package cryptop
+package fincrypt
 
 import (
 	"encoding/base64"

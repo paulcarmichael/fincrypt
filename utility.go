@@ -1,4 +1,4 @@
-package cryptop
+package fincrypt
 
 import (
 	"encoding/hex"
@@ -34,7 +34,7 @@ const (
 	InputNameCVK   = "CVK"
 )
 
-// Operation interface is satisfied by all cryptop structs
+// Operation interface is satisfied by all fincrypt tool structs
 type Operation interface {
 	Calculate() (string, error)
 }

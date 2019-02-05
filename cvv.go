@@ -1,4 +1,4 @@
-package cryptop
+package fincrypt
 
 import (
 	"crypto/cipher"

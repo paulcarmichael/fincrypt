@@ -1,4 +1,4 @@
-package cryptop
+package fincrypt
 
 import (
 	"encoding/json"
@@ -37,7 +37,7 @@ func GetDictionary() *EMVDictionary {
 		dictionary = &EMVDictionary{}
 
 		// open the emvtags.json file
-		bytes, err := ioutil.ReadFile("/go/src/github.com/paulcarmichael/cryptop/emvtags.json")
+		bytes, err := ioutil.ReadFile("/go/src/github.com/paulcarmichael/fincrypt/emvtags.json")
 
 		if err != nil {
 			log.Fatal("Open: ", err)
