@@ -7,7 +7,7 @@ import (
 
 // LuhnOperation struct to be populated by the caller
 type LuhnOperation struct {
-	Mode  int
+	Mode  Mode
 	Input string
 }
 

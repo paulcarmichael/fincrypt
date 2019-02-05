@@ -8,8 +8,8 @@ import (
 
 // DESOperation struct to be populated by the caller
 type DESOperation struct {
-	Direction int
-	Mode      string
+	Direction Direction
+	Mode      CipherMode
 	Key       string
 	Data      string
 	IV        string

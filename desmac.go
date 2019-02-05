@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-// padding modes
+// DESMAC padding modes
 const (
 	NONE    = "NONE"
 	Method1 = "M1"

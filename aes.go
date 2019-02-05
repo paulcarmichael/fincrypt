@@ -8,8 +8,8 @@ import (
 
 // AESOperation struct to be populated by the caller
 type AESOperation struct {
-	Direction int
-	Mode      string
+	Direction Direction
+	Mode      CipherMode
 	Key       string
 	Data      string
 	IV        string

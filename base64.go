@@ -7,7 +7,7 @@ import (
 
 // Base64Operation struct to be populated and provided by the caller
 type Base64Operation struct {
-	Direction int
+	Direction Direction
 	Input     string
 }
 

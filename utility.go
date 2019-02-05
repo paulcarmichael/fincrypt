@@ -7,22 +7,31 @@ import (
 	"strings"
 )
 
-// cipher direction
+// Direction specifies if an operation should encrypt or decrypt
+type Direction int
+
+// Specifies if an operation should encrypt or decrypt
 const (
-	DirectionEncrypt = iota
+	DirectionEncrypt Direction = iota
 	DirectionDecrypt
 )
 
-// validation modes
+// Mode specifies if an operation should generate or validate
+type Mode int
+
+// Specifies if an operation should generate or validate
 const (
-	ModeGenerate = iota
+	ModeGenerate Mode = iota
 	ModeValidate
 )
 
-// cipher modes
+// CipherMode specifies if an operation should use ECB or CBC
+type CipherMode string
+
+// Specifies if an operation should use ECB or CBC
 const (
-	CipherModeECB = "ECB"
-	CipherModeCBC = "CBC"
+	CipherModeECB CipherMode = "ECB"
+	CipherModeCBC            = "CBC"
 )
 
 // input names
