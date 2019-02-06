@@ -58,16 +58,12 @@ func (op DESOperation) Calculate() (string, error) {
 		if err != nil {
 			return "", err
 		}
-	} else if keyLength == 16 {
-		// duplicate the first 8 bytes to build a 24 byte key
-		op.Key += op.Key[:8]
-
-		block, err = des.NewTripleDESCipher([]byte(op.Key))
-
-		if err != nil {
-			return "", err
-		}
 	} else {
+		if keyLength == 16 {
+			// duplicate the first 8 bytes to build a 24 byte key
+			op.Key += op.Key[:8]
+		}
+
 		block, err = des.NewTripleDESCipher([]byte(op.Key))
 
 		if err != nil {
