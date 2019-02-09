@@ -113,12 +113,12 @@ func (op CVVOperation) calculateCVV(kl, kr cipher.Block) (string, error) {
 	b.WriteString(op.ServiceCode)
 
 	input := b.String()
-	iLen := len(input)
+	inputLen := len(input)
 
-	if iLen < 32 {
-		b.WriteString(strings.Repeat("0", 32-iLen))
+	if inputLen < 32 {
+		b.WriteString(strings.Repeat("0", 32-inputLen))
 		input = b.String()
-	} else if iLen > 32 {
+	} else if inputLen > 32 {
 		input = input[:32]
 	}
 

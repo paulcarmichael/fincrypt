@@ -56,7 +56,7 @@ func (op PVVOperation) Calculate() (string, error) {
 		return "", err
 	}
 
-	op.PVK, err = Pack(op.PVK, InputNameKey)
+	op.PVK, err = Pack(op.PVK, InputNamePVK)
 
 	if err != nil {
 		return "", err
@@ -74,9 +74,7 @@ func (op PVVOperation) Calculate() (string, error) {
 	}
 
 	// prepare a buffer for the result
-	blockSize := k.BlockSize()
-
-	r := make([]byte, blockSize)
+	r := make([]byte, k.BlockSize())
 
 	// encrypt the data block with the key
 	k.Encrypt(r, []byte(input))

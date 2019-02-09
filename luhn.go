@@ -57,9 +57,7 @@ func (op LuhnOperation) Calculate() (string, error) {
 
 	result := sum % 10
 
-	if result == 0 {
-		// leave result as zero
-	} else {
+	if result != 0 {
 		result = 10 - result
 	}
 

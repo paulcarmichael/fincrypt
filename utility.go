@@ -10,7 +10,7 @@ import (
 // Direction specifies if an operation should encrypt or decrypt
 type Direction int
 
-// Specifies if an operation should encrypt or decrypt
+// Direction enum specifies if an operation should encrypt or decrypt
 const (
 	DirectionEncrypt Direction = iota
 	DirectionDecrypt
@@ -19,7 +19,7 @@ const (
 // Mode specifies if an operation should generate or validate
 type Mode int
 
-// Specifies if an operation should generate or validate
+// Mode enum specifies if an operation should generate or validate
 const (
 	ModeGenerate Mode = iota
 	ModeValidate
@@ -28,19 +28,23 @@ const (
 // CipherMode specifies if an operation should use ECB or CBC
 type CipherMode string
 
-// Specifies if an operation should use ECB or CBC
+// CipherMode enum specifies if an operation should use ECB or CBC
 const (
 	CipherModeECB CipherMode = "ECB"
 	CipherModeCBC            = "CBC"
 )
 
-// input names
+// InputName specifies input element names for error reporting
+type InputName string
+
+// InputName enum specifies input element names for error reporting
 const (
-	InputNameKey   = "Key"
-	InputNameData  = "Data"
-	InputNameIV    = "IV"
-	InputNameInput = "Input"
-	InputNameCVK   = "CVK"
+	InputNameKey   InputName = "Key"
+	InputNameData            = "Data"
+	InputNameIV              = "IV"
+	InputNameInput           = "Input"
+	InputNameCVK             = "CVK"
+	InputNamePVK             = "PVK"
 )
 
 // Operation interface is satisfied by all fincrypt tool structs
@@ -49,15 +53,15 @@ type Operation interface {
 }
 
 // Pack returns the packed representation of an expanded hex string
-func Pack(input, name string) (string, error) {
+func Pack(input string, name InputName) (string, error) {
 
 	// validate the input
 	if len(input) == 0 {
-		return "", errors.New(name + " input has zero length")
+		return "", errors.New(string(name) + " input has zero length")
 	}
 
 	if len(input)%2 != 0 {
-		return "", errors.New(name + " input is an uneven length, use only full bytes")
+		return "", errors.New(string(name) + " input is an uneven length, use only full bytes")
 	}
 
 	upperInput := strings.ToUpper(input)
@@ -69,7 +73,7 @@ func Pack(input, name string) (string, error) {
 	}
 
 	if match == false {
-		return "", errors.New(name + " input contains invalid characters, use hex only (0-9 A-F)")
+		return "", errors.New(string(name) + " input contains invalid characters, use hex only (0-9 A-F)")
 	}
 
 	// decode!

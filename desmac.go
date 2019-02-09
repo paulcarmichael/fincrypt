@@ -6,18 +6,21 @@ import (
 	"strings"
 )
 
+// DESMACPaddingMode specifies the type of padding applied to the data
+type DESMACPaddingMode string
+
 // DESMAC padding modes
 const (
-	NONE    = "NONE"
-	Method1 = "M1"
-	Method2 = "M2"
+	DESMACPaddingModeNone    DESMACPaddingMode = "NONE"
+	DESMACPaddingModeMethod1                   = "M1"
+	DESMACPaddingModeMethod2                   = "M2"
 )
 
 // DESMACOperation struct to be populated by the caller
 type DESMACOperation struct {
 	Key     string
 	Data    string
-	Padding string
+	Padding DESMACPaddingMode
 }
 
 // Calculate results in the creation of a DES MAC
@@ -60,13 +63,13 @@ func (op DESMACOperation) Calculate() (string, error) {
 	blockSize := kl.BlockSize()
 
 	// pad the data accordingly
-	if op.Padding == Method1 ||
-		op.Padding == Method2 {
+	if op.Padding == DESMACPaddingModeMethod1 ||
+		op.Padding == DESMACPaddingModeMethod2 {
 
 		var b strings.Builder
 		b.WriteString(op.Data)
 
-		if op.Padding == Method1 {
+		if op.Padding == DESMACPaddingModeMethod1 {
 			if b.Len()%blockSize != 0 {
 				b.WriteByte(0x00)
 			}
