@@ -2,6 +2,7 @@ package fincrypt
 
 import (
 	"crypto/des"
+	"encoding/json"
 	"errors"
 	"strconv"
 	"strings"
@@ -13,6 +14,12 @@ type PINOffsetOperation struct {
 	PIN string
 	PVK string
 	DT  string
+}
+
+// PINOffsetResult contains the natural PIN and PIN offset
+type PINOffsetResult struct {
+	NaturalPIN string
+	PINOffset  string
 }
 
 // Calculate generates a natural PIN and PIN offset from data populated in a PINOffsetOperation variable
@@ -132,5 +139,17 @@ func (op PINOffsetOperation) Calculate() (string, error) {
 		offset += strconv.FormatInt(offsetDigit, 10)
 	}
 
-	return offset, nil
+	// return the calculated PINs
+	var offsetResult PINOffsetResult
+
+	offsetResult.NaturalPIN = result[:len(op.PIN)]
+	offsetResult.PINOffset = offset
+
+	resultBytes, err := json.Marshal(offsetResult)
+
+	if err != nil {
+		return "", errors.New("Failed to convert calculated PINs to json")
+	}
+
+	return string(resultBytes), nil
 }
