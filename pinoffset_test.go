@@ -15,7 +15,7 @@ func Test_PINOffset(t *testing.T) {
 		t.Errorf(err.Error())
 	}
 
-	expected := "9752"
+	expected := "{\"NaturalPIN\":\"2582\",\"PINOffset\":\"9752\"}"
 
 	if result != expected {
 		t.Errorf("Expected [%s], Calculate returned [%s]", expected, result)
