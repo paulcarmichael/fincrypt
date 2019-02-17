@@ -39,12 +39,14 @@ type InputName string
 
 // InputName enum specifies input element names for error reporting
 const (
-	InputNameKey   InputName = "Key"
-	InputNameData            = "Data"
-	InputNameIV              = "IV"
-	InputNameInput           = "Input"
-	InputNameCVK             = "CVK"
-	InputNamePVK             = "PVK"
+	InputNameKey    InputName = "Key"
+	InputNameData             = "Data"
+	InputNameIV               = "IV"
+	InputNameInput            = "Input"
+	InputNameInput1           = "Input 1"
+	InputNameInput2           = "Input 2"
+	InputNameCVK              = "CVK"
+	InputNamePVK              = "PVK"
 )
 
 // Operation interface is satisfied by all fincrypt tool structs
@@ -57,11 +59,11 @@ func Pack(input string, name InputName) (string, error) {
 
 	// validate the input
 	if len(input) == 0 {
-		return "", errors.New(string(name) + " input has zero length")
+		return "", errors.New(string(name) + " has zero length")
 	}
 
 	if len(input)%2 != 0 {
-		return "", errors.New(string(name) + " input is an uneven length, use only full bytes")
+		return "", errors.New(string(name) + " is an uneven length, use only full bytes")
 	}
 
 	upperInput := strings.ToUpper(input)
@@ -73,7 +75,7 @@ func Pack(input string, name InputName) (string, error) {
 	}
 
 	if match == false {
-		return "", errors.New(string(name) + " input contains invalid characters, use hex only (0-9 A-F)")
+		return "", errors.New(string(name) + " contains invalid characters, use hex only (0-9 A-F)")
 	}
 
 	// decode!

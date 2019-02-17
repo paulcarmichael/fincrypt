@@ -20,13 +20,13 @@ func (op XOROperation) Calculate() (string, error) {
 
 	// pack the data
 	var err error
-	op.Input1, err = Pack(op.Input1, InputNameInput)
+	op.Input1, err = Pack(op.Input1, InputNameInput1)
 
 	if err != nil {
 		return "", err
 	}
 
-	op.Input2, err = Pack(op.Input2, InputNameInput)
+	op.Input2, err = Pack(op.Input2, InputNameInput2)
 
 	if err != nil {
 		return "", err
