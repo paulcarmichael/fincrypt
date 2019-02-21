@@ -41,9 +41,7 @@ func (op RetailMACOperation) Calculate() (string, error) {
 	}
 
 	// validate the key length
-	if len(op.Key) == 16 {
-		// happy
-	} else {
+	if len(op.Key) != 16 {
 		return "", errors.New("Key must be 16 bytes")
 	}
 
