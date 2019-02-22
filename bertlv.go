@@ -61,6 +61,12 @@ func (t BERTLVTag) Calculate() (string, error) {
 		return "", errors.New("Tag has zero length")
 	}
 
+	_, err := Pack(t.Tag, InputNameTag)
+
+	if err != nil {
+		return "", err
+	}
+
 	if dt, found := GetDictionary().Tags[t.Tag]; found {
 		t.Name = dt.Name
 		t.Format = dt.Format

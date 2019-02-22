@@ -39,14 +39,15 @@ type InputName string
 
 // InputName enum specifies input element names for error reporting
 const (
-	InputNameKey    InputName = "Key"
+	InputNameCVK    InputName = "CVK"
 	InputNameData             = "Data"
-	InputNameIV               = "IV"
 	InputNameInput            = "Input"
 	InputNameInput1           = "Input 1"
 	InputNameInput2           = "Input 2"
-	InputNameCVK              = "CVK"
+	InputNameIV               = "IV"
+	InputNameKey              = "Key"
 	InputNamePVK              = "PVK"
+	InputNameTag              = "Tag"
 )
 
 // Operation interface is satisfied by all fincrypt tool structs
