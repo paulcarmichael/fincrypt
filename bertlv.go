@@ -10,20 +10,7 @@ import (
 	"sync"
 )
 
-// BERTLVTag struct represents an individual tag
-type BERTLVTag struct {
-	Tag           string
-	Length        int64
-	MinLength     int64
-	MaxLength     int64
-	Value         string
-	Name          string
-	Format        string
-	Valid         bool
-	InvalidReason string
-}
-
-// EMVDictionary is supported as a singleton containing all EMV tag info
+// EMVDictionary is supported as a singleton which contains EMV tag info for lookups
 type EMVDictionary struct {
 	Tags map[string]BERTLVTag
 }
@@ -36,11 +23,10 @@ func GetDictionary() *EMVDictionary {
 	once.Do(func() {
 		dictionary = &EMVDictionary{}
 
-		// open the emvtags.json file
 		bytes, err := ioutil.ReadFile("/go/src/github.com/paulcarmichael/fincrypt/emvtags.json")
 
 		if err != nil {
-			log.Fatal("Open: ", err)
+			log.Fatal("ReadFile: ", err)
 		}
 
 		// read the file into the EMVDictionary singleton
@@ -54,6 +40,49 @@ func GetDictionary() *EMVDictionary {
 	})
 
 	return dictionary
+}
+
+// BERTLVTag struct represents an individual tag
+type BERTLVTag struct {
+	Tag           string
+	Length        int64
+	MinLength     int64
+	MaxLength     int64
+	Value         string
+	Name          string
+	Format        string
+	Valid         bool
+	InvalidReason string
+}
+
+// Calculate is given a single tag to lookup and returns the tag info
+func (t BERTLVTag) Calculate() (string, error) {
+	if len(t.Tag) == 0 {
+		return "", errors.New("Tag has zero length")
+	}
+
+	if dt, found := GetDictionary().Tags[t.Tag]; found {
+		t.Name = dt.Name
+		t.Format = dt.Format
+		t.MinLength = dt.MinLength
+		t.MaxLength = dt.MaxLength
+	} else {
+		var b strings.Builder
+
+		b.WriteString("Tag ")
+		b.WriteString(t.Tag)
+		b.WriteString(" is unknown to the EMV 4.3 specification")
+
+		t.InvalidReason = b.String()
+	}
+
+	result, err := json.Marshal(t)
+
+	if err != nil {
+		return "", errors.New("Failed to convert result tag to json")
+	}
+
+	return string(result), nil
 }
 
 // BERTLVParser struct to be populated by the caller
