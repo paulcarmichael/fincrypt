@@ -15,18 +15,18 @@ type PINBlockFormat string
 
 // PINBlockFormat enum lists supports PIN block formats
 const (
-	PINBlockFormatISO0 PINBlockFormat = "ISO-0"
-	PINBlockFormatISO1                = "ISO-1"
-	PINBlockFormatISO2                = "ISO-2"
-	PINBlockFormatISO3                = "ISO-3"
+	PINBlockFormatISO0 PINBlockFormat = "ISO0"
+	PINBlockFormatISO1                = "ISO1"
+	PINBlockFormatISO2                = "ISO2"
+	PINBlockFormatISO3                = "ISO3"
 )
 
 // PINBlockOperation used to calculate clear and encrypted PIN blocks
 type PINBlockOperation struct {
 	PAN string
 	PIN string
-	PBF PINBlockFormat
 	PPK string
+	PBF PINBlockFormat
 }
 
 // PINBlockResult contains the clear and encrypted PIN blocks
