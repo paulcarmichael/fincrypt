@@ -38,8 +38,7 @@ func (op PINOffsetOperation) Calculate() (string, error) {
 		return "", errors.New("PIN field can be a maximum of 16 digits long")
 	}
 
-	if len(op.PVK) != 32 &&
-		len(op.PVK) != 48 {
+	if len(op.PVK) != 32 && len(op.PVK) != 48 {
 		return "", errors.New("PVK field must be 32 or 48 digits long")
 	}
 
@@ -50,15 +49,6 @@ func (op PINOffsetOperation) Calculate() (string, error) {
 	// check the decimalisation table is numeric digits only
 	if NumericOnly(op.DT) == false {
 		return "", errors.New("Decimalidation Table must be numeric digits only")
-	}
-
-	// pack the PVK
-	var err error
-
-	op.PVK, err = Pack(op.PVK, InputNamePVK)
-
-	if err != nil {
-		return "", err
 	}
 
 	// build the validation data
@@ -79,6 +69,12 @@ func (op PINOffsetOperation) Calculate() (string, error) {
 	}
 
 	// prepare the PVK
+	op.PVK, err = Pack(op.PVK, InputNamePVK)
+
+	if err != nil {
+		return "", err
+	}
+
 	if len(op.PVK) == 16 {
 		op.PVK += op.PVK[:8]
 	}

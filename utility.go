@@ -7,6 +7,11 @@ import (
 	"strings"
 )
 
+// Operation interface is satisfied by all fincrypt tool structs
+type Operation interface {
+	Calculate() (string, error)
+}
+
 // Direction specifies if an operation should encrypt or decrypt
 type Direction int
 
@@ -25,13 +30,27 @@ const (
 	ModeValidate
 )
 
-// CipherMode specifies if an operation should use ECB or CBC
+// CipherMode specifies a cipher chaining mode
 type CipherMode string
 
-// CipherMode enum specifies if an operation should use ECB or CBC
+// CipherMode specifies a cipher chaining mode
 const (
 	CipherModeECB CipherMode = "ECB"
 	CipherModeCBC            = "CBC"
+)
+
+// HashMode specifies the mode of a hash function
+type HashMode string
+
+// HashMode modes of of hash function
+const (
+	HashModeSHA1   HashMode = "SHA-1"
+	HashModeSHA224          = "SHA-224"
+	HashModeSHA256          = "SHA-256"
+	HashModeSHA384          = "SHA-384"
+	HashModeSHA512          = "SHA-512"
+	HashModeMD4             = "MD4"
+	HashModeMD5             = "MD5"
 )
 
 // InputName specifies input element names for error reporting
@@ -46,14 +65,10 @@ const (
 	InputNameInput2           = "Input 2"
 	InputNameIV               = "IV"
 	InputNameKey              = "Key"
+	InputNamePPK              = "PPK"
 	InputNamePVK              = "PVK"
 	InputNameTag              = "Tag"
 )
-
-// Operation interface is satisfied by all fincrypt tool structs
-type Operation interface {
-	Calculate() (string, error)
-}
 
 // Pack returns the packed representation of an expanded hex string
 func Pack(input string, name InputName) (string, error) {

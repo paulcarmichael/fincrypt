@@ -2,10 +2,10 @@ package fincrypt
 
 import "testing"
 
-func Test_SHA1(t *testing.T) {
-	operation := SHAOperation{}
+func Test_Hash_SHA1(t *testing.T) {
+	operation := HashOperation{}
 	operation.Input = "makin'hasheatin'mashspendin'cash"
-	operation.Mode = SHAModeSHA1
+	operation.HashMode = HashModeSHA1
 
 	result, err := operation.Calculate()
 
@@ -20,10 +20,10 @@ func Test_SHA1(t *testing.T) {
 	}
 }
 
-func Test_SHA_224(t *testing.T) {
-	operation := SHAOperation{}
+func Test_Hash_SHA_224(t *testing.T) {
+	operation := HashOperation{}
 	operation.Input = "makin'hasheatin'mashspendin'cash"
-	operation.Mode = SHAModeSHA224
+	operation.HashMode = HashModeSHA224
 
 	result, err := operation.Calculate()
 
@@ -38,10 +38,10 @@ func Test_SHA_224(t *testing.T) {
 	}
 }
 
-func Test_SHA_256(t *testing.T) {
-	operation := SHAOperation{}
+func Test_Hash_SHA_256(t *testing.T) {
+	operation := HashOperation{}
 	operation.Input = "makin'hasheatin'mashspendin'cash"
-	operation.Mode = SHAModeSHA256
+	operation.HashMode = HashModeSHA256
 
 	result, err := operation.Calculate()
 
@@ -56,10 +56,10 @@ func Test_SHA_256(t *testing.T) {
 	}
 }
 
-func Test_SHA_384(t *testing.T) {
-	operation := SHAOperation{}
+func Test_Hash_SHA_384(t *testing.T) {
+	operation := HashOperation{}
 	operation.Input = "makin'hasheatin'mashspendin'cash"
-	operation.Mode = SHAModeSHA384
+	operation.HashMode = HashModeSHA384
 
 	result, err := operation.Calculate()
 
@@ -74,10 +74,10 @@ func Test_SHA_384(t *testing.T) {
 	}
 }
 
-func Test_SHA_512(t *testing.T) {
-	operation := SHAOperation{}
+func Test_Hash_SHA_512(t *testing.T) {
+	operation := HashOperation{}
 	operation.Input = "makin'hasheatin'mashspendin'cash"
-	operation.Mode = SHAModeSHA512
+	operation.HashMode = HashModeSHA512
 
 	result, err := operation.Calculate()
 
@@ -86,6 +86,42 @@ func Test_SHA_512(t *testing.T) {
 	}
 
 	expected := "d9c2e339fe0b2f01e265bf00c3828393458cdefa3403dc5f3344dd5366cd13b9423236247d15a60d2cfa09e1fddaedc4734db337061aa649bc350759c9959993"
+
+	if result != expected {
+		t.Errorf("Expected [%s], Calculate returned [%s]", expected, result)
+	}
+}
+
+func Test_Hash_MD4(t *testing.T) {
+	operation := HashOperation{}
+	operation.Input = "makin'hasheatin'mashspendin'cash"
+	operation.HashMode = HashModeMD4
+
+	result, err := operation.Calculate()
+
+	if err != nil {
+		t.Errorf(err.Error())
+	}
+
+	expected := "3c7ae0864f79b0fc56d2aea1d89edab4"
+
+	if result != expected {
+		t.Errorf("Expected [%s], Calculate returned [%s]", expected, result)
+	}
+}
+
+func Test_Hash_MD5(t *testing.T) {
+	operation := HashOperation{}
+	operation.Input = "makin'hasheatin'mashspendin'cash"
+	operation.HashMode = HashModeMD5
+
+	result, err := operation.Calculate()
+
+	if err != nil {
+		t.Errorf(err.Error())
+	}
+
+	expected := "082e91a5a743e0129abfa1aee50df05c"
 
 	if result != expected {
 		t.Errorf("Expected [%s], Calculate returned [%s]", expected, result)
