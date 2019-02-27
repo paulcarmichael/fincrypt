@@ -58,16 +58,19 @@ type InputName string
 
 // InputName enum specifies input element names for error reporting
 const (
-	InputNameCVK    InputName = "CVK"
-	InputNameData             = "Data"
-	InputNameInput            = "Input"
-	InputNameInput1           = "Input 1"
-	InputNameInput2           = "Input 2"
-	InputNameIV               = "IV"
-	InputNameKey              = "Key"
-	InputNamePPK              = "PPK"
-	InputNamePVK              = "PVK"
-	InputNameTag              = "Tag"
+	InputNameCVK             InputName = "CVK"
+	InputNameData                      = "Data"
+	InputNameInput                     = "Input"
+	InputNameInput1                    = "Input 1"
+	InputNameInput2                    = "Input 2"
+	InputNameIV                        = "IV"
+	InputNameKey                       = "Key"
+	InputNamePPK                       = "PPK"
+	InputNamePVK                       = "PVK"
+	InputNameTag                       = "Tag"
+	InputNamePublicExponent            = "Public Exponent"
+	InputNamePrivateExponent           = "Private Exponent"
+	InputNameModulus                   = "Modulus"
 )
 
 // Pack returns the packed representation of an expanded hex string
@@ -91,7 +94,7 @@ func Pack(input string, name InputName) (string, error) {
 	}
 
 	if match == false {
-		return "", errors.New(string(name) + " contains invalid characters, use hex only (0-9 A-F)")
+		return "", errors.New(string(name) + " contains invalid characters, use hex digits only (0-9 A-F)")
 	}
 
 	// decode!
