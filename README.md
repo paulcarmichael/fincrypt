@@ -1,5 +1,5 @@
 # fincrypt
-A go cryptography library which provides solutions for common cryptography requirements found in the payment industry.
+A go library which provides general purpose cryptography alongside solutions for payment industry specific requirements.
 
 fincrypt offers simple drop in support, with robust error reporting, which is backed unit tests.
 
