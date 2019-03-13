@@ -65,12 +65,14 @@ const (
 	InputNameInput2                    = "Input 2"
 	InputNameIV                        = "IV"
 	InputNameKey                       = "Key"
+	InputNameMasterKey                 = "Master Key"
+	InputNameModulus                   = "Modulus"
 	InputNamePPK                       = "PPK"
+	InputNamePrivateExponent           = "Private Exponent"
+	InputNamePublicExponent            = "Public Exponent"
 	InputNamePVK                       = "PVK"
 	InputNameTag                       = "Tag"
-	InputNamePublicExponent            = "Public Exponent"
-	InputNamePrivateExponent           = "Private Exponent"
-	InputNameModulus                   = "Modulus"
+	InputNameVariant                   = "Variant"
 )
 
 // Pack returns the packed representation of an expanded hex string
