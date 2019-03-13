@@ -31,4 +31,5 @@ Operation support includes,
 * Utilities
   * Base64
   * Luhn Check Digit
+  * SafeNet Variants
   * XOR
